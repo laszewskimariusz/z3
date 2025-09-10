@@ -1,0 +1,33 @@
+# Node / Next.js
+node_modules/
+.next/
+out/
+dist/
+build/
+.cache/
+coverage/
+
+# Env & local config
+.env
+.env.*
+!.env.example
+
+# OS / editors
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Package managers
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Deployment
+.vercel/
+
+
+#spec
+/z3
+plan.md 
