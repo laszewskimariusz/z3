@@ -6,9 +6,7 @@ import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
 
 async function getKeys(): Promise<KeyMeta[]> {
-  const baseUrl = process.env.NODE_ENV === 'production'
-    ? process.env.Z3_PUBLIC_URL || 'http://localhost:3000'
-    : 'http://localhost:3001'
+  const baseUrl = process.env.Z3_API_BASE_URL || 'http://localhost:3000'
 
   const response = await fetch(`${baseUrl}/api/keys`)
   if (response.ok) {
@@ -29,7 +27,13 @@ export default function KeysPage() {
   const fetchKeys = async () => {
     try {
       const data = await getKeys()
-      setKeys(data)
+      // Convert date strings back to Date objects
+      const processedData = data.map(key => ({
+        ...key,
+        createdAt: new Date(key.createdAt),
+        expiresAt: key.expiresAt ? new Date(key.expiresAt) : null
+      }))
+      setKeys(processedData)
     } catch (error) {
       console.error('Error fetching keys:', error)
     } finally {

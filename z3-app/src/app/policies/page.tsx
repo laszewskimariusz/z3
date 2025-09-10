@@ -41,9 +41,7 @@ export default function PoliciesPage() {
 
   const fetchPolicies = async () => {
     try {
-      const baseUrl = process.env.NODE_ENV === 'production'
-        ? process.env.Z3_PUBLIC_URL || 'http://localhost:3000'
-        : 'http://localhost:3000'
+      const baseUrl = process.env.Z3_API_BASE_URL || 'http://localhost:3000'
 
       const response = await fetch(`${baseUrl}/api/policies`)
       if (response.ok) {
@@ -61,9 +59,7 @@ export default function PoliciesPage() {
     e.preventDefault()
 
     try {
-      const baseUrl = process.env.NODE_ENV === 'production'
-        ? process.env.Z3_PUBLIC_URL || 'http://localhost:3000'
-        : 'http://localhost:3000'
+      const baseUrl = process.env.Z3_API_BASE_URL || 'http://localhost:3000'
 
       let response
       if (editingPolicy) {
@@ -122,9 +118,7 @@ export default function PoliciesPage() {
     if (!confirm(`Are you sure you want to delete policy "${policyName}"?`)) return
 
     try {
-      const baseUrl = process.env.NODE_ENV === 'production'
-        ? process.env.Z3_PUBLIC_URL || 'http://localhost:3000'
-        : 'http://localhost:3000'
+      const baseUrl = process.env.Z3_API_BASE_URL || 'http://localhost:3000'
 
       const response = await fetch(`${baseUrl}/api/policies`, {
         method: 'DELETE',

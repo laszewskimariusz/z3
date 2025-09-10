@@ -25,14 +25,17 @@ export default function BucketsPage() {
 
   const fetchBuckets = async () => {
     try {
-      const baseUrl = process.env.NODE_ENV === 'production'
-        ? process.env.Z3_PUBLIC_URL || 'http://localhost:3000'
-        : 'http://localhost:3000'
+      const baseUrl = process.env.Z3_API_BASE_URL || 'http://localhost:3000'
 
       const response = await fetch(`${baseUrl}/api/buckets`)
       if (response.ok) {
         const data = await response.json()
-        setBuckets(data.items)
+        // Convert date strings back to Date objects
+        const processedData = data.items.map((bucket: any) => ({
+          ...bucket,
+          creationDate: new Date(bucket.creationDate)
+        }))
+        setBuckets(processedData)
       }
     } catch (error) {
       console.error('Error fetching buckets:', error)
@@ -45,9 +48,7 @@ export default function BucketsPage() {
     if (!newBucketName.trim()) return
 
     try {
-      const baseUrl = process.env.NODE_ENV === 'production'
-        ? process.env.Z3_PUBLIC_URL || 'http://localhost:3000'
-        : 'http://localhost:3000'
+      const baseUrl = process.env.Z3_API_BASE_URL || 'http://localhost:3000'
 
       const response = await fetch(`${baseUrl}/api/buckets`, {
         method: 'POST',
@@ -69,9 +70,7 @@ export default function BucketsPage() {
     if (!confirm(`Are you sure you want to delete bucket "${bucketName}"?`)) return
 
     try {
-      const baseUrl = process.env.NODE_ENV === 'production'
-        ? process.env.Z3_PUBLIC_URL || 'http://localhost:3000'
-        : 'http://localhost:3000'
+      const baseUrl = process.env.Z3_API_BASE_URL || 'http://localhost:3000'
 
       const response = await fetch(`${baseUrl}/api/buckets`, {
         method: 'DELETE',
@@ -173,7 +172,7 @@ export default function BucketsPage() {
                       {bucket.name}
                     </TableCell>
                     <TableCell className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">
-                      {new Date(bucket.creationDate).toLocaleDateString()}
+                      {bucket.creationDate.toLocaleDateString()}
                     </TableCell>
                     <TableCell className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {bucket.objectCount}

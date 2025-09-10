@@ -28,9 +28,7 @@ export default function LoginPage() {
     setLoading(true)
     setError('')
     try {
-      const baseUrl = process.env.NODE_ENV === 'production'
-        ? process.env.Z3_PUBLIC_URL || 'http://localhost:3000'
-        : 'http://localhost:3000'
+      const baseUrl = process.env.Z3_API_BASE_URL || 'http://localhost:3000'
 
       const response = await fetch(`${baseUrl}/api/auth/login`, {
         method: 'POST',

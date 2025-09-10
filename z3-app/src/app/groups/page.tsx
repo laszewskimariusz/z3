@@ -22,9 +22,7 @@ function CreateGroupForm({ onClose, onCreate }: { onClose: () => void, onCreate:
     setIsSubmitting(true)
 
     try {
-      const baseUrl = process.env.NODE_ENV === 'production'
-        ? process.env.Z3_PUBLIC_URL || 'http://localhost:3000'
-        : 'http://localhost:3001'
+      const baseUrl = process.env.Z3_API_BASE_URL || 'http://localhost:3000'
 
       const response = await fetch(`${baseUrl}/api/groups`, {
         method: 'POST',
@@ -121,9 +119,7 @@ export default function GroupsPage() {
 
   const fetchGroups = async () => {
     try {
-      const baseUrl = process.env.NODE_ENV === 'production'
-        ? process.env.Z3_PUBLIC_URL || 'http://localhost:3000'
-        : 'http://localhost:3001'
+      const baseUrl = process.env.Z3_API_BASE_URL || 'http://localhost:3000'
 
       const response = await fetch(`${baseUrl}/api/groups`)
       if (response.ok) {

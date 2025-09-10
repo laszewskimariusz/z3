@@ -35,9 +35,7 @@ export default function UsersPage() {
 
   const fetchUsers = async () => {
     try {
-      const baseUrl = process.env.NODE_ENV === 'production'
-        ? process.env.Z3_PUBLIC_URL || 'http://localhost:3000'
-        : 'http://localhost:3000'
+      const baseUrl = process.env.Z3_API_BASE_URL || 'http://localhost:3000'
 
       const response = await fetch(`${baseUrl}/api/users`)
       if (response.ok) {
@@ -55,9 +53,7 @@ export default function UsersPage() {
     e.preventDefault()
 
     try {
-      const baseUrl = process.env.NODE_ENV === 'production'
-        ? process.env.Z3_PUBLIC_URL || 'http://localhost:3000'
-        : 'http://localhost:3000'
+      const baseUrl = process.env.Z3_API_BASE_URL || 'http://localhost:3000'
 
       const userData = {
         login: formData.login,
@@ -112,9 +108,7 @@ export default function UsersPage() {
     if (!confirm('Are you sure you want to delete this user?')) return
 
     try {
-      const baseUrl = process.env.NODE_ENV === 'production'
-        ? process.env.Z3_PUBLIC_URL || 'http://localhost:3000'
-        : 'http://localhost:3000'
+      const baseUrl = process.env.Z3_API_BASE_URL || 'http://localhost:3000'
 
       const response = await fetch(`${baseUrl}/api/users`, {
         method: 'DELETE',
