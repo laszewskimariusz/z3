@@ -51,11 +51,11 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen px-4">
       <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>Login to Z3</CardTitle>
-          <CardDescription>Enter your MinIO credentials</CardDescription>
+        <CardHeader className="text-center">
+          <CardTitle className="text-2xl">Login to Z3</CardTitle>
+          <CardDescription>Enter your MinIO credentials to access the console</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -65,9 +65,10 @@ export default function LoginPage() {
                 id="accessKey"
                 {...register('accessKey')}
                 placeholder="Enter access key"
+                className="mt-1"
               />
               {errors.accessKey && (
-                <p className="text-sm text-red-500">{errors.accessKey.message}</p>
+                <p className="text-sm text-red-500 mt-1">{errors.accessKey.message}</p>
               )}
             </div>
             <div>
@@ -77,13 +78,14 @@ export default function LoginPage() {
                 type="password"
                 {...register('secretKey')}
                 placeholder="Enter secret key"
+                className="mt-1"
               />
               {errors.secretKey && (
-                <p className="text-sm text-red-500">{errors.secretKey.message}</p>
+                <p className="text-sm text-red-500 mt-1">{errors.secretKey.message}</p>
               )}
             </div>
-            {error && <p className="text-sm text-red-500">{error}</p>}
-            <Button type="submit" disabled={loading} className="w-full">
+            {error && <p className="text-sm text-red-500 text-center">{error}</p>}
+            <Button type="submit" disabled={loading} className="w-full mt-6">
               {loading ? 'Logging in...' : 'Login'}
             </Button>
           </form>

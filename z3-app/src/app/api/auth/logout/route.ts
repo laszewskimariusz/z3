@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSession, destroySession } from '@/lib/session'
+import { cookies } from 'next/headers'
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,6 +13,10 @@ export async function POST(request: NextRequest) {
 
     // Destroy the session
     await destroySession()
+
+    // Also clear the cookie explicitly
+    const cookieStore = await cookies()
+    cookieStore.delete('z3-session')
 
     return NextResponse.json({ message: 'Logged out successfully' })
   } catch (error) {

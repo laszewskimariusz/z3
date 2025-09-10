@@ -25,7 +25,7 @@ export function Header() {
     try {
       const baseUrl = process.env.NODE_ENV === 'production'
         ? process.env.Z3_PUBLIC_URL || 'http://localhost:3000'
-        : 'http://localhost:3001'
+        : 'http://localhost:3000'
 
       const response = await fetch(`${baseUrl}/api/auth/me`)
       if (response.ok) {
@@ -43,7 +43,7 @@ export function Header() {
     try {
       const baseUrl = process.env.NODE_ENV === 'production'
         ? process.env.Z3_PUBLIC_URL || 'http://localhost:3000'
-        : 'http://localhost:3001'
+        : 'http://localhost:3000'
 
       const response = await fetch(`${baseUrl}/api/auth/logout`, {
         method: 'POST',

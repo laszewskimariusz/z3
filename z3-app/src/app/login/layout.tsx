@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Header } from "@/components/layout/header";
-import { Sidebar } from "@/components/layout/sidebar";
-import { getSession } from "@/lib/session";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,18 +14,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Z3 - MinIO IAM Console",
-  description: "Web console for MinIO Identity and Access Management",
+  title: "Z3 - Login",
+  description: "Login to Z3 MinIO IAM Console",
 };
 
-export default async function RootLayout({
+export default function LoginLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getSession();
-  const isLoggedIn = !!session.user;
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -40,14 +34,8 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex h-screen bg-background">
-            {isLoggedIn && <Sidebar />}
-            <div className="flex-1 flex flex-col">
-              {isLoggedIn && <Header />}
-              <main className={`flex-1 overflow-auto ${isLoggedIn ? 'p-6' : ''}`}>
-                {children}
-              </main>
-            </div>
+          <div className="min-h-screen bg-background">
+            {children}
           </div>
         </ThemeProvider>
       </body>
